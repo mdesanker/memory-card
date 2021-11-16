@@ -4,6 +4,7 @@ import Card from "./Card";
 
 const Main = () => {
   const [characters, setCharacters] = useState([]);
+  // const [content, setContent] = useState();
 
   // Fetch character API data on load
   useEffect(() => {
@@ -34,7 +35,16 @@ const Main = () => {
 
   console.log("chars", characters);
 
-  return <MainContainer>Placeholder text</MainContainer>;
+  // const content = characters.map((char) => {
+  //   return <Card key={char.char_id} info={char} />;
+  // });
+
+  return (
+    <MainContainer>
+      {/* {content} */}
+      Placeholder
+    </MainContainer>
+  );
 };
 
 const MainContainer = styled.main`
