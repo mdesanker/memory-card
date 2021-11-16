@@ -12,7 +12,11 @@ const FooterContainer = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5 rem;
+  padding: 0.5rem;
+
+  background-color: rgb(52, 52, 52);
+  color: white;
+  letter-spacing: 0.1rem;
 `;
 
 export default Footer;
