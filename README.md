@@ -17,3 +17,4 @@ npm start
 
 - React
 - styled-components
+- Breaking Bad API

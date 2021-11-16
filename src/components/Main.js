@@ -13,15 +13,24 @@ const Main = () => {
           "https://www.breakingbadapi.com/api/characters"
         );
         const json = await response.json();
-        // json.length = 12;
-        setCharacters(json.filter((_, index) => index < 12));
-        // console.log(json);
+        const indices = getRandomIndices(json, 12);
+        const selection = indices.map((val) => json[val]);
+        setCharacters(selection);
       } catch (error) {
         console.error(error.message);
       }
     }
     fetchChars();
   }, []);
+
+  const getRandomIndices = (arr, numEl) => {
+    const randIndices = [];
+    while (randIndices.length < numEl) {
+      const num = Math.floor(Math.random() * arr.length + 1);
+      if (!randIndices.includes(num)) randIndices.push(num);
+    }
+    return randIndices;
+  };
 
   console.log("chars", characters);
 
