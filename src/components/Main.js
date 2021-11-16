@@ -4,7 +4,7 @@ import Card from "./Card";
 
 const Main = () => {
   const [characters, setCharacters] = useState([]);
-  // const [content, setContent] = useState();
+  const [content, setContent] = useState();
 
   // Fetch character API data on load
   useEffect(() => {
@@ -33,18 +33,15 @@ const Main = () => {
     return randIndices;
   };
 
-  console.log("chars", characters);
+  useEffect(() => {
+    setContent(
+      characters.map((char) => {
+        return <Card key={char.char_id} info={char} />;
+      })
+    );
+  }, [characters]);
 
-  // const content = characters.map((char) => {
-  //   return <Card key={char.char_id} info={char} />;
-  // });
-
-  return (
-    <MainContainer>
-      {/* {content} */}
-      Placeholder
-    </MainContainer>
-  );
+  return <MainContainer>{content}</MainContainer>;
 };
 
 const MainContainer = styled.main`
