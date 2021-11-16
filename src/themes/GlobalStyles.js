@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 18px;
     /* Footer support */
     position: relative;
-    min-height: 100%;
+    min-height: 100vh;
   }
 
   body {
