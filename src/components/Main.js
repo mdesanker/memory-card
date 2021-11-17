@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Card from "./game/Card";
 import CardWrapper from "./game/CardWrapper";
+import Scoreboard from "./game/Scoreboard";
 import uniqid from "uniqid";
 
 const Main = () => {
@@ -69,6 +70,7 @@ const Main = () => {
 
   return (
     <MainContainer>
+      <Scoreboard />
       <CardWrapper>{content}</CardWrapper>
     </MainContainer>
   );
@@ -76,6 +78,7 @@ const Main = () => {
 
 const MainContainer = styled.main`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
