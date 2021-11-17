@@ -34,8 +34,6 @@ const Main = () => {
     fetchChars();
   }, []);
 
-  // console.log(characters);
-
   const getRandomIndices = (arr, numEl) => {
     const randIndices = [];
     while (randIndices.length < numEl) {
@@ -58,25 +56,20 @@ const Main = () => {
     return newArr;
   };
 
+  // Handle clicks on card components
   const clickHandler = (e) => {
     const { id } = e.target;
     if (guesses.includes(id)) return;
     console.log("id", id);
-    // if (guesses.includes(id)) {
-    setGuesses(() => [...guesses, id]);
+    setGuesses((prevState) => [...prevState, id]);
+    setCurrentScore((prevState) => prevState + 1);
     console.log(guesses);
-    // }
   };
 
-  // useEffect(() => {
-  //   setContent(
-  //     characters.map((char) => {
-  //       return (
-  //         <Card key={char.char_id} info={char} onClickHandler={clickHandler} />
-  //       );
-  //     })
-  //   );
-  // }, [characters]);
+  // Set high score
+  useEffect(() => {
+    currentScore > highScore && setHighScore(currentScore);
+  }, [currentScore, highScore]);
 
   return (
     <MainContainer>
