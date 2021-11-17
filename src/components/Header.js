@@ -3,16 +3,79 @@ import styled from "styled-components";
 const Header = () => {
   return (
     <HeaderContainer>
-      <h1>Memory Game</h1>
+      <Title>
+        <Letters>Me</Letters>
+        <Element>
+          <h2>42</h2>
+          <h1>Mo</h1>
+        </Element>
+        <Letters>ry&nbsp;&nbsp;&nbsp;</Letters>
+        <Element>
+          <h2>31</h2>
+          <h1>Ga</h1>
+        </Element>
+        <Letters>me</Letters>
+      </Title>
     </HeaderContainer>
   );
 };
+
+const Letters = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 6rem;
+  text-align: center;
+  padding: 0.7rem 0.2rem 0;
+`;
+
+const Element = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid white;
+  width: 4rem;
+  height: 5rem;
+  text-align: center;
+
+  & h1 {
+    font-size: 2rem;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  & h2 {
+    font-size: 1rem;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  & p {
+    font-size: 0.7rem;
+    font-weight: 100;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+`;
+
+const Title = styled.h1`
+  display: flex;
+  // flex-direction: row;
+  // align-items: center;
+`;
 
 const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 5rem;
+  padding: 0.5rem 5rem;
+  color: white;
+  background-color: #264653;
 `;
 
 export default Header;

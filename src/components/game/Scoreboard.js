@@ -19,7 +19,7 @@ const Score = styled.div`
   border: 1px solid black;
   font-size: 1rem;
   padding: 0.5rem 2rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 `;
 
 export default Scoreboard;

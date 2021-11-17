@@ -17,10 +17,9 @@ const Main = () => {
           "https://www.breakingbadapi.com/api/characters"
         );
         const json = await response.json();
+        // Filter out Holly White - no img in API
         const chars = json.filter((_, index) => index !== 38);
-        // console.log(characters);
-
-        // // Downselect to 12 random characters
+        // Downselect to 12 random characters
         const indices = getRandomIndices(chars, 12);
         const selection = indices.map((val) => chars[val]);
         setCharacters(selection);
@@ -43,10 +42,16 @@ const Main = () => {
   // Handle clicks on card components
   const clickHandler = (e) => {
     const { id } = e.target;
+    // Handle correct guess
     if (!guesses.includes(id)) {
       console.log("id", id);
       setGuesses((prevState) => [...prevState, id]);
       setCurrentScore((prevState) => prevState + 1);
+
+      //Handle incorrect guess
+    } else {
+      setCurrentScore(0);
+      setGuesses([]);
     }
     setCharacters(shuffleArray(characters));
   };
@@ -81,7 +86,7 @@ const MainContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   background-color: gray;
   height: 100%;
