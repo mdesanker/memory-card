@@ -9,7 +9,7 @@ const Main = () => {
   const [guesses, setGuesses] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [isWon, setIsWon] = useState(false);
+  const [isWon, setIsWon] = useState(true);
 
   async function fetchChars() {
     try {
