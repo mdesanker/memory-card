@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Cards from "./game/Cards";
-import CardWrapper from "./game/CardWrapper";
 import Scoreboard from "./game/Scoreboard";
-import uniqid from "uniqid";
 
 const Main = () => {
   const [characters, setCharacters] = useState([]);
-  const [content, setContent] = useState();
   const [guesses, setGuesses] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
@@ -43,6 +40,22 @@ const Main = () => {
     return randIndices;
   };
 
+  // Handle clicks on card components
+  const clickHandler = (e) => {
+    const { id } = e.target;
+    if (!guesses.includes(id)) {
+      console.log("id", id);
+      setGuesses((prevState) => [...prevState, id]);
+      setCurrentScore((prevState) => prevState + 1);
+    }
+    setCharacters(shuffleArray(characters));
+  };
+
+  // Set high score
+  useEffect(() => {
+    currentScore > highScore && setHighScore(currentScore);
+  }, [currentScore, highScore]);
+
   const shuffleArray = (arr) => {
     const newArr = [];
     const indices = [];
@@ -55,21 +68,6 @@ const Main = () => {
     }
     return newArr;
   };
-
-  // Handle clicks on card components
-  const clickHandler = (e) => {
-    const { id } = e.target;
-    if (guesses.includes(id)) return;
-    console.log("id", id);
-    setGuesses((prevState) => [...prevState, id]);
-    setCurrentScore((prevState) => prevState + 1);
-    console.log(guesses);
-  };
-
-  // Set high score
-  useEffect(() => {
-    currentScore > highScore && setHighScore(currentScore);
-  }, [currentScore, highScore]);
 
   return (
     <MainContainer>
