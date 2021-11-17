@@ -3,8 +3,8 @@ import styled from "styled-components";
 const Scoreboard = (props) => {
   return (
     <ScoreboardContainer>
-      <Score>Current Score:</Score>
-      <Score>High Score: </Score>
+      <Score>Current Score: {props.current}</Score>
+      <Score>High Score: {props.high}</Score>
     </ScoreboardContainer>
   );
 };

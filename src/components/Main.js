@@ -7,8 +7,10 @@ import uniqid from "uniqid";
 
 const Main = () => {
   const [characters, setCharacters] = useState([]);
-  // const [characters, setSelectedChars] = useState([]);
   const [content, setContent] = useState();
+  const [guesses, setGuesses] = useState([]);
+  const [currentScore, setCurrentScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   // Fetch character API data on load
   useEffect(() => {
@@ -56,21 +58,28 @@ const Main = () => {
     return newArr;
   };
 
-  // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  // console.log(arr);
-  // console.log(shuffleArray(arr));
+  const clickHandler = (e) => {
+    const { id } = e.target;
+    console.log("id", id);
+    if (guesses.includes(id)) {
+      // setGuesses(() => [...guesses, id]);
+      console.log(guesses);
+    }
+  };
 
   useEffect(() => {
     setContent(
       characters.map((char) => {
-        return <Card key={uniqid()} info={char} />;
+        return (
+          <Card key={char.char_id} info={char} onClickHandler={clickHandler} />
+        );
       })
     );
   }, [characters]);
 
   return (
     <MainContainer>
-      <Scoreboard />
+      <Scoreboard current={currentScore} high={highScore} />
       <CardWrapper>{content}</CardWrapper>
     </MainContainer>
   );

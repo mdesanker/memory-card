@@ -2,7 +2,11 @@ import styled from "styled-components";
 
 const Card = (props) => {
   return (
-    <CardContainer img={props.info.img ? props.info.img : ""}>
+    <CardContainer
+      id={props.info.char_id}
+      img={props.info.img}
+      onClick={props.onClickHandler}
+    >
       <Label>{props.info.name}</Label>
     </CardContainer>
   );
