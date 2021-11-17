@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Card from "./Card";
+import Card from "./game/Card";
+import CardWrapper from "./game/CardWrapper";
+import uniqid from "uniqid";
 
 const Main = () => {
   const [characters, setCharacters] = useState([]);
+  // const [characters, setSelectedChars] = useState([]);
   const [content, setContent] = useState();
 
   // Fetch character API data on load
@@ -14,8 +17,12 @@ const Main = () => {
           "https://www.breakingbadapi.com/api/characters"
         );
         const json = await response.json();
-        const indices = getRandomIndices(json, 12);
-        const selection = indices.map((val) => json[val]);
+        const chars = json.filter((_, index) => index !== 38);
+        // console.log(characters);
+
+        // // Downselect to 12 random characters
+        const indices = getRandomIndices(chars, 12);
+        const selection = indices.map((val) => chars[val]);
         setCharacters(selection);
       } catch (error) {
         console.error(error.message);
@@ -24,24 +31,47 @@ const Main = () => {
     fetchChars();
   }, []);
 
+  // console.log(characters);
+
   const getRandomIndices = (arr, numEl) => {
     const randIndices = [];
     while (randIndices.length < numEl) {
-      const num = Math.floor(Math.random() * arr.length + 1);
+      const num = Math.floor(Math.random() * arr.length);
       if (!randIndices.includes(num)) randIndices.push(num);
     }
     return randIndices;
   };
 
+  const shuffleArray = (arr) => {
+    const newArr = [];
+    const indices = [];
+    while (newArr.length !== arr.length) {
+      const index = Math.floor(Math.random() * arr.length);
+      if (!indices.includes(index)) {
+        indices.push(index);
+        newArr.push(arr[index]);
+      }
+    }
+    return newArr;
+  };
+
+  // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  // console.log(arr);
+  // console.log(shuffleArray(arr));
+
   useEffect(() => {
     setContent(
       characters.map((char) => {
-        return <Card key={char.char_id} info={char} />;
+        return <Card key={uniqid()} info={char} />;
       })
     );
   }, [characters]);
 
-  return <MainContainer>{content}</MainContainer>;
+  return (
+    <MainContainer>
+      <CardWrapper>{content}</CardWrapper>
+    </MainContainer>
+  );
 };
 
 const MainContainer = styled.main`
@@ -50,6 +80,7 @@ const MainContainer = styled.main`
   justify-content: center;
   flex-wrap: wrap;
   background-color: gray;
+  height: 100%;
 `;
 
 export default Main;
