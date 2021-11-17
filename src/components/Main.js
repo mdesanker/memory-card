@@ -5,20 +5,24 @@ import Scoreboard from "./game/Scoreboard";
 import Backdrop from "./Backdrop";
 
 const Main = () => {
+  // States
   const [characters, setCharacters] = useState([]);
   const [guesses, setGuesses] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [isWon, setIsWon] = useState(true);
+  const [isWon, setIsWon] = useState(false);
 
+  // Functions
   async function fetchChars() {
     try {
       const response = await fetch(
         "https://www.breakingbadapi.com/api/characters"
       );
       const json = await response.json();
-      // Filter out Holly White - no img in API
-      const chars = json.filter((_, index) => index !== 38);
+
+      // Filter out Holly White - no img in API, and Salamanca twins - weird img
+      const chars = json.filter((_, index) => index !== 38 && index !== 12);
+
       // Downselect to 12 random characters
       const indices = getRandomIndices(chars, 12);
       const selection = indices.map((val) => chars[val]);
@@ -27,11 +31,6 @@ const Main = () => {
       console.error(error.message);
     }
   }
-
-  // Fetch character API data on load
-  useEffect(() => {
-    fetchChars();
-  }, []);
 
   const getRandomIndices = (arr, numEl) => {
     const randIndices = [];
@@ -55,18 +54,10 @@ const Main = () => {
       setCurrentScore(0);
       setGuesses([]);
     }
-    // if (guesses.length === 4) setIsWon(true);
+
+    // Shuffle board after each guess
     setCharacters(shuffleArray(characters));
   };
-
-  useEffect(() => {
-    if (guesses.length >= 4) setIsWon(true);
-  }, [guesses]);
-
-  // Set high score
-  useEffect(() => {
-    currentScore > highScore && setHighScore(currentScore);
-  }, [currentScore, highScore]);
 
   const shuffleArray = (arr) => {
     const newArr = [];
@@ -89,6 +80,22 @@ const Main = () => {
     setGuesses([]);
   };
 
+  // useEffect Hooks
+  // Fetch character API data on load
+  useEffect(() => {
+    fetchChars();
+  }, []);
+
+  useEffect(() => {
+    if (guesses.length >= 12) setIsWon(true);
+  }, [guesses]);
+
+  // Set high score
+  useEffect(() => {
+    currentScore > highScore && setHighScore(currentScore);
+  }, [currentScore, highScore]);
+
+  // Render
   return (
     <MainContainer>
       <Scoreboard current={currentScore} high={highScore} />

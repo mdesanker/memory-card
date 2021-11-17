@@ -8,7 +8,7 @@ const CardWrapper = styled.div`
 
   width: 800px;
   height: auto;
-  margin: 20px 0 40px;
+  margin: 10px 0 40px;
 `;
 
 export default CardWrapper;

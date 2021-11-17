@@ -1,4 +1,4 @@
-# Memory Card Game
+# Breaking Bad Memory Game
 
 A memory card game created with react.
 

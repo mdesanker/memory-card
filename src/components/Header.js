@@ -4,15 +4,23 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Title>
+        {/* <Element>
+          <h2>90</h2>
+          <h1>Th</h1>
+          <p>Thalium</p>
+        </Element>
+        <Letters>e&nbsp;&nbsp;</Letters> */}
         <Letters>Me</Letters>
         <Element>
           <h2>42</h2>
           <h1>Mo</h1>
+          <p>Molybdenum</p>
         </Element>
         <Letters>ry&nbsp;&nbsp;&nbsp;</Letters>
         <Element>
           <h2>31</h2>
           <h1>Ga</h1>
+          <p>Gallium</p>
         </Element>
         <Letters>me</Letters>
       </Title>
@@ -27,7 +35,7 @@ const Letters = styled.div`
   align-items: center;
   height: 6rem;
   text-align: center;
-  padding: 0.7rem 0.2rem 0;
+  padding: 0rem 0.2rem 0.6rem;
 `;
 
 const Element = styled.div`
@@ -55,7 +63,7 @@ const Element = styled.div`
   }
 
   & p {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     font-weight: 100;
     text-align: center;
     padding: 0;
