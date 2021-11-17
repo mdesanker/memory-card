@@ -18,12 +18,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: arial, sans-serif;
   }
 
-  #root {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
   a {
     text-decoration: none;
   }

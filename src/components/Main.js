@@ -2,31 +2,34 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Cards from "./game/Cards";
 import Scoreboard from "./game/Scoreboard";
+import Backdrop from "./Backdrop";
 
 const Main = () => {
   const [characters, setCharacters] = useState([]);
   const [guesses, setGuesses] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [isWon, setIsWon] = useState(true);
+
+  async function fetchChars() {
+    try {
+      const response = await fetch(
+        "https://www.breakingbadapi.com/api/characters"
+      );
+      const json = await response.json();
+      // Filter out Holly White - no img in API
+      const chars = json.filter((_, index) => index !== 38);
+      // Downselect to 12 random characters
+      const indices = getRandomIndices(chars, 12);
+      const selection = indices.map((val) => chars[val]);
+      setCharacters(selection);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
   // Fetch character API data on load
   useEffect(() => {
-    async function fetchChars() {
-      try {
-        const response = await fetch(
-          "https://www.breakingbadapi.com/api/characters"
-        );
-        const json = await response.json();
-        // Filter out Holly White - no img in API
-        const chars = json.filter((_, index) => index !== 38);
-        // Downselect to 12 random characters
-        const indices = getRandomIndices(chars, 12);
-        const selection = indices.map((val) => chars[val]);
-        setCharacters(selection);
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
     fetchChars();
   }, []);
 
@@ -74,10 +77,15 @@ const Main = () => {
     return newArr;
   };
 
+  const gameOverClickHandler = () => {
+    setIsWon(false);
+  };
+
   return (
     <MainContainer>
       <Scoreboard current={currentScore} high={highScore} />
       <Cards charList={characters} onClickHandler={clickHandler} />
+      {isWon && <Backdrop onGameOverClick={gameOverClickHandler} />}
     </MainContainer>
   );
 };
@@ -88,7 +96,6 @@ const MainContainer = styled.main`
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-  height: 100%;
 `;
 
 export default Main;
