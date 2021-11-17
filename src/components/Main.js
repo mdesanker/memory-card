@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Card from "./game/Card";
+import Cards from "./game/Cards";
 import CardWrapper from "./game/CardWrapper";
 import Scoreboard from "./game/Scoreboard";
 import uniqid from "uniqid";
@@ -60,27 +60,28 @@ const Main = () => {
 
   const clickHandler = (e) => {
     const { id } = e.target;
+    if (guesses.includes(id)) return;
     console.log("id", id);
-    if (guesses.includes(id)) {
-      // setGuesses(() => [...guesses, id]);
-      console.log(guesses);
-    }
+    // if (guesses.includes(id)) {
+    setGuesses(() => [...guesses, id]);
+    console.log(guesses);
+    // }
   };
 
-  useEffect(() => {
-    setContent(
-      characters.map((char) => {
-        return (
-          <Card key={char.char_id} info={char} onClickHandler={clickHandler} />
-        );
-      })
-    );
-  }, [characters]);
+  // useEffect(() => {
+  //   setContent(
+  //     characters.map((char) => {
+  //       return (
+  //         <Card key={char.char_id} info={char} onClickHandler={clickHandler} />
+  //       );
+  //     })
+  //   );
+  // }, [characters]);
 
   return (
     <MainContainer>
       <Scoreboard current={currentScore} high={highScore} />
-      <CardWrapper>{content}</CardWrapper>
+      <Cards charList={characters} onClickHandler={clickHandler} />
     </MainContainer>
   );
 };

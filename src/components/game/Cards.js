@@ -1,15 +1,21 @@
 import styled from "styled-components";
+import CardWrapper from "./CardWrapper";
 
-const Card = (props) => {
-  return (
-    <CardContainer
-      id={props.info.char_id}
-      img={props.info.img}
-      onClick={props.onClickHandler}
-    >
-      <Label>{props.info.name}</Label>
-    </CardContainer>
-  );
+const Cards = (props) => {
+  const content = props.charList.map((char) => {
+    return (
+      <CardContainer
+        id={char.char_id}
+        key={char.char_id}
+        img={char.img}
+        onClick={props.onClickHandler}
+      >
+        <Label>{char.name}</Label>
+      </CardContainer>
+    );
+  });
+
+  return <CardWrapper>{content}</CardWrapper>;
 };
 
 const CardContainer = styled.div`
@@ -43,4 +49,4 @@ const Label = styled.label`
   background-color: rgba(0, 0, 0, 0.2);
 `;
 
-export default Card;
+export default Cards;
