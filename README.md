@@ -2,7 +2,7 @@
 
 A memory card game created with react.
 
-Live demo [here](http://mdesanker.github.io/memor-card)
+Live demo [here](http://mdesanker.github.io/memory-card)
 
 ## How to setup
 
