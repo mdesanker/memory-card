@@ -9,7 +9,7 @@ const Main = () => {
   const [guesses, setGuesses] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [isWon, setIsWon] = useState(true);
+  const [isWon, setIsWon] = useState(false);
 
   async function fetchChars() {
     try {
@@ -47,7 +47,6 @@ const Main = () => {
     const { id } = e.target;
     // Handle correct guess
     if (!guesses.includes(id)) {
-      console.log("id", id);
       setGuesses((prevState) => [...prevState, id]);
       setCurrentScore((prevState) => prevState + 1);
 
@@ -56,8 +55,13 @@ const Main = () => {
       setCurrentScore(0);
       setGuesses([]);
     }
+    // if (guesses.length === 4) setIsWon(true);
     setCharacters(shuffleArray(characters));
   };
+
+  useEffect(() => {
+    if (guesses.length >= 4) setIsWon(true);
+  }, [guesses]);
 
   // Set high score
   useEffect(() => {
@@ -79,6 +83,10 @@ const Main = () => {
 
   const gameOverClickHandler = () => {
     setIsWon(false);
+    setCharacters([]);
+    fetchChars();
+    setCurrentScore(0);
+    setGuesses([]);
   };
 
   return (
