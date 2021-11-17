@@ -32,12 +32,15 @@ const CardContainer = styled.div`
   background-size: cover;
   background-position: top;
 
+  transition: 200ms all;
+
   &:hover {
     background-image: linear-gradient(
         rgba(255, 255, 255, 0.1),
         rgba(255, 255, 255, 0.1)
       ),
       url(${(props) => (props.img ? props.img : "")});
+    transform: scale(1.03);
   }
 `;
 

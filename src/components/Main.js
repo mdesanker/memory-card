@@ -88,7 +88,6 @@ const MainContainer = styled.main`
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-  background-color: gray;
   height: 100%;
 `;
 
